@@ -3,26 +3,33 @@ import pickle
 import socket
 
 def create_key(my_password):
-    gen_key = Fernet.generate_key() + my_password.encode('utf-8')
-    return gen_key
+    key = Fernet.generate_key() + my_password.encode('utf-8')
+    return key
 
-def data_encrypt(gen_key, video):
-    key = Fernet(gen_key)
+def data_encrypt(key, video):
+    my_key = Fernet(key)
     with open("../vid/mediapipe.mp4", "rb") as v:
         video = v.read()
-    video_encripted = key.encrypt(video)
+    video_encripted = my_key.encrypt(video)
     return video_encripted
 
-def data_decrypt():
-    pass
+def data_decrypt(key, video_pickle):
+    my_key = Fernet(key)
+    file = open("vid.pickle", "rb")
+    videopk = pickle.load(file)
+    file.close()
+    video_decrypted = my_key.decrypt(videopk)
+    with open("../vid/vid_decrypted.mp4", "wb") as dc:
+        dc.write(video_decrypted)
+    return True
 
-def obtener_ip():
+def ip():
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(('8.8.8.8', 80))
         ip = s.getsockname()[0]
     except Exception as e:
-        print(f"No se pudo obtener la dirección IP: {e}")
+        return (str(e))
         ip = None
     finally:
         s.close()
