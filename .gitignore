@@ -1,4 +1,5 @@
 venv
 vid
 files
+api/__pycache
 api/__pycache__
