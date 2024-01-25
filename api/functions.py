@@ -1,10 +1,13 @@
 from cryptography.fernet import Fernet
 import pickle
 import socket
+from io import BytesIO
 
 def create_key(my_password):
     key = Fernet.generate_key() + my_password.encode('utf-8')
-    return key
+    file_key = pickle.dumps(key)
+    file_key = BytesIO(file_key)
+    return file_key
 
 def data_encrypt(key, video):
     my_key = Fernet(key)
@@ -34,3 +37,6 @@ def ip():
     finally:
         s.close()
     return ip
+
+
+print(create_key("juancho"))

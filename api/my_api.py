@@ -1,5 +1,5 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from api.functions import *
 import os
 
@@ -13,7 +13,7 @@ async def get_ip():
 @app.get("/gen_key")
 async def gen_key(my_pwd):
     my_key = create_key(my_pwd)
-    return 
+    return StreamingResponse(my_key, media_type='application/octet-stream', headers={'Content-Disposition': 'attachment; filename="password.pickle"'})
 
 @app.post("/sharing/upload")
 async def sharing_upload_file(file: UploadFile):
