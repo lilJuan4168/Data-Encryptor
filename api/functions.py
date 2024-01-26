@@ -10,11 +10,13 @@ def create_key(my_password):
     return file_key
 
 def data_encrypt(key, video):
+    key = pickle.loads(key)
     my_key = Fernet(key)
-    with open("../vid/mediapipe.mp4", "rb") as v:
-        video = v.read()
-    video_encripted = my_key.encrypt(video)
-    return video_encripted
+    #with open("../vid/mediapipe.mp4", "rb") as v:
+    #    video = v.read()
+    video_encrypted = my_key.encrypt(video)
+    video_encrypted = BytesIO(video_encrypted)
+    return video_encrypted
 
 def data_decrypt(key, video_pickle):
     my_key = Fernet(key)
@@ -37,6 +39,3 @@ def ip():
     finally:
         s.close()
     return ip
-
-
-print(create_key("juancho"))
