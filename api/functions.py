@@ -19,14 +19,15 @@ def data_encrypt(key, video):
     return video_encrypted
 
 def data_decrypt(key, video_pickle):
+    key = pickle.loads(key)
     my_key = Fernet(key)
-    file = open("vid.pickle", "rb")
-    videopk = pickle.load(file)
-    file.close()
+    #file = open("vid.pickle", "rb")
+    videopk = pickle.loads(video_pickle)
+    #file.close()
     video_decrypted = my_key.decrypt(videopk)
-    with open("../vid/vid_decrypted.mp4", "wb") as dc:
-        dc.write(video_decrypted)
-    return True
+    #with open("../vid/vid_decrypted.mp4", "wb") as dc:
+    #    dc.write(video_decrypted)
+    return video_decrypted
 
 def ip():
     try:
