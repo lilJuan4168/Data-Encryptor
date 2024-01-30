@@ -1,6 +1,4 @@
 venv
-vid
-files
 api/__pycache
 api/__pycache__
 cli/__pycache__

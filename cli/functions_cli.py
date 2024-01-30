@@ -17,7 +17,11 @@ def data_encrypt(key, path, file, pwd):
         video = v.read()
     video_encrypted = my_key.encrypt(video)
     file_name = str(datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
-    os.mkdir(f"{path}/encrypted_files")
+    foder_exist = os.path.exists(f"{path}/encrypted_files")
+    if foder_exist:
+        pass
+    else:
+       os.mkdir(f"{path}/encrypted_files")
     pkfile = open(f"{path}/encrypted_files/{file_name}.pickle", "wb")
     pickle.dump(video_encrypted, pkfile)
     pkfile.close()
@@ -29,7 +33,11 @@ def data_decrypt(key, path, file, pwd):
     videopk = pickle.load(filepk)
     filepk.close()
     video_decrypted = my_key.decrypt(videopk)
-    os.mkdir(f"{path}/decrypted_files")
+    foder_exist = os.path.exists(f"{path}/decrypted_files")
+    if foder_exist:
+        pass
+    else:
+       os.mkdir(f"{path}/decrypted_files")
     with open(f"{path}/decrypted_files/{file}.mp4", "wb") as dc:
         dc.write(video_decrypted)
     return video_decrypted
