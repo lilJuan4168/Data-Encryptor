@@ -2,3 +2,5 @@ python-multipart
 streamlit
 fastapi
 uvicorn
+cryptography
+tqdm
