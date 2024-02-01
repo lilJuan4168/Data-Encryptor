@@ -24,3 +24,5 @@ python cli/encrypter_cli.py
 
 <h2>Decrypter_CLI</h2>
 <p>To decrypt the file password.pickle must be in the same folder as the rest of pickle files.</p>
+
+#python version 3.11.6
